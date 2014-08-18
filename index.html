@@ -2,15 +2,16 @@
 <html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
+
     <title>Document</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
         $(function(){
 
-            var description = 'описание';
+            var description = encodeURI("описание");
             var start = "20140817T120000Z";
             var end = "20140817T120000Z";
-            var sammary = "Лучший день";
+            var sammary = encodeURI("Лучший день");
 
             var icsMSG = "BEGIN:VCALENDAR\n" +
                     "VERSION:2.0\n" +
