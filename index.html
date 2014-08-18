@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+
+            var description = 'описание';
+            var start = "20140817T120000Z";
+            var end = "20140817T120000Z";
+            var sammary = "Лучший день";
+
+            var icsMSG = "BEGIN:VCALENDAR\n" +
+                    "VERSION:2.0\n" +
+                    "PRODID:-//championat.com v1.0//EN\n" +
+                    "BEGIN:VEVENT\n" +
+                    "DTSTART:" + start + "\n" +
+                    "DTEND:" + end + "\n" +
+                    "SUMMARY:" + sammary +"\n" +
+                    "DESCRIPTION:" + description + "\n" +
+                    "END:VEVENT\n" +
+                    "END:VCALENDAR\n";
+
+            $('.outlook').click(function(){
+                window.open("data:text/calendar;Charset=UTF-8," + encodeURI(icsMSG));
+            });
+
+            $('.gmail').click(function(){
+                window.open("http://www.google.com/calendar/event?action=TEMPLATE&dates=" + start + "/" + end + "&text=" + description + "&details=" + sammary);
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <button class="outlook">Outlook</button>
+    <button class="gmail">GMail</button>
+</body>
+</html>
