@@ -2,46 +2,55 @@
 <html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
-
     <title>Document</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
-        $(function(){
+        $(function () {
 
-            var description = encodeURI("описание");
+            var description = 'описание';
             var start = "20140817T120000Z";
             var end = "20140817T120000Z";
-            var sammary = encodeURI("Лучший день");
+            var sammary = "Лучший день";
 
-            var icsMSG = "BEGIN:VCALENDAR\n" +
-                    "VERSION:2.0\n" +
-                    "PRODID:-//championat.com v1.0//EN\n" +
-                    "BEGIN:VEVENT\n" +
-                    "DTSTART:" + start + "\n" +
-                    "DTEND:" + end + "\n" +
-                    "SUMMARY:" + sammary +"\n" +
-                    "DESCRIPTION:" + description + "\n" +
-                    "END:VEVENT\n" +
-                    "END:VCALENDAR\n";
+            // safari desktop detect
+            if ((/MacIntel/).test(navigator.platform) && (/Apple/).test(navigator.vendor)) {
+                $('.outlook').css('display', 'none');
+            }
 
-            $('.outlook').click(function(){
-                window.open("data:text/calendar;Charset=UTF-8," + encodeURI(icsMSG));
+            $('.outlook').click(function () {
+                var href = "data:text/calendar;content-Disposition: attachment;Charset=UTF-8," + encodeURI("BEGIN:VCALENDAR\n" +
+                        "VERSION:2.0\n" +
+                        "PRODID:-//championat.com v1.0//EN\n" +
+                        "BEGIN:VEVENT\n" +
+                        "DTSTART:" + start + "\n" +
+                        "DTEND:" + end + "\n" +
+                        "SUMMARY:" + sammary + "\n" +
+                        "DESCRIPTION:" + description + "\n" +
+                        "END:VEVENT\n" +
+                        "END:VCALENDAR\n");
+                $(this).attr('href', href);
+                $(this).attr('download', 'ev.ics');
+                $(this).click();
             });
 
-            $('.gmail').click(function(){
-                window.open("http://www.google.com/calendar/event?action=TEMPLATE&dates=" + start + "/" + end + "&text=" + description + "&details=" + sammary);
+            $('.gmail').click(function () {
+                window.open("http://www.google.com/calendar/event?action=TEMPLATE&dates=" + encodeURI(
+                                start + "/" + end + "&text=" + description + "&details=" + sammary
+                ));
             });
 
-            $('.hotmail').click(function(){
-                window.open("https://calendar.live.com/calendar/calendar.aspx?rru=addevent&dtstart=" + start + "&dtend=" + end + "&description=" + description + "&summary=" + sammary);
+            $('.hotmail').click(function () {
+                window.open("https://calendar.live.com/calendar/calendar.aspx?rru=addevent&dtstart=" + encodeURI(
+                                start + "&dtend=" + end + "&description=" + description + "&summary=" + sammary
+                ));
             });
 
         });
     </script>
 </head>
 <body>
-    <button class="outlook">Outlook</button>
-    <button class="gmail">GMail</button>
-    <button class="hotmail">Hotmail</button>
+    <a class="outlook">Outlook</a>
+    <a class="gmail">GMail</a>
+    <a class="hotmail">Hotmail</a>
 </body>
 </html>
